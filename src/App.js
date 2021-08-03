@@ -1,23 +1,25 @@
-import logo from './logo.svg';
+import { useEffect, useState } from 'react'
+
 import './App.css';
+import quesoContainer from './quesoContainer';
+
 
 function App() {
+
+  const [quesos, setQuesos] = useState([])
+
+  const getQuesos = () => {
+    fetch('http://localhost:3000/quesos')
+    .then(response => response.json())
+    .then(apiQuesos => setQuesos(apiQuesos))
+}
+
+  useEffect(getQuesos, [])
+
+
   return (
     <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
+      <quesoContainer quesos={quesos} />
     </div>
   );
 }
